@@ -1,0 +1,51 @@
+def colorControl(colorname):
+    
+    import maya.cmds as cmds 
+    
+    stuff = cmds.ls(sl = True)
+    
+    if colorname == 'yellow':
+        color = 17
+    elif colorname == 'red':
+        color = 13
+    elif colorname == 'blue':
+        color = 6
+    elif colorname == 'black':
+        color = 1
+    elif colorname == 'green':
+        color = 7 
+    elif colorname == 'pink':
+        color = 9
+    elif colorname == 'brown':
+        color = 10 
+    elif colorname == 'neon green':
+        color = 14
+    elif colorname == 'purple':
+        color = 30 
+    elif colorname == 'white':
+        color = 16
+    elif colorname == 'gray':
+        color = 2
+    elif colorname == 'pearl':
+        color = 3
+    elif colorname == 'dark red':
+        color = 4
+    elif colorname == 'navy':
+        color = 5
+    elif colorname == 'burgundy':
+        color = 11
+    elif colorname == 'royal blue':
+        color = 15
+    elif colorname == 'baby blue':
+        color = 18
+
+
+    else: 
+        color = 14
+        
+    for things in stuff:
+        shapes = cmds.listRelatives(stuff, children=True, shapes=True)
+        
+        for shape in shapes:
+            cmds.setAttr('%s.overrideEnabled' % shape, True)
+            cmds.setAttr('%s.overrideColor' % shape, color) 
