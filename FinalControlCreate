@@ -1,0 +1,21 @@
+def createControl():
+
+    import maya.cmds as cmds
+    
+    Stuff = cmds.ls(sl=True, objectsOnly=True) 
+
+    i = 0
+    
+    circles = []
+
+    for Thing in Stuff: 
+
+        circles.append(cmds.circle(ch = False))
+       
+        cmds.matchTransform(circles[i], Stuff[i])
+        cmds.parentConstraint(circles[i], Stuff[i])
+        controlName = Stuff[i] + '_cntrl'
+        print 'world'
+        
+        cmds.rename(circles[i], controlName)
+        i = i + 1 
