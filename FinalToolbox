@@ -1,17 +1,17 @@
-class Toolbox():
+class finToolbox():
     
     import maya.cmds as cmds
     
     
     def __init__(self):
         
-        self.window_name = "mlToolbox"
+        self.window_name = "mlFinToolbox"
     def create(self): 
         self.delete()
-        import Add
+        
         self.window_name = cmds.window(self.window_name)
         self.m_column = cmds.columnLayout(p = self.window_name, adj = True)
-        cmds.button(p=self.m_column,label = 'MyButton', c=lambda *arg: cmds.polySphere(r = 2))
+        #cmds.button(p=self.m_column,label = 'MyButton', c=lambda *arg: cmds.polySphere(r = 2))
         
         
         
@@ -33,55 +33,49 @@ class Toolbox():
         self.scaleMM = cmds.floatFieldGrp(p=self.m_column, label = 'Min and Max Scale Values', nf = 2)
         cmds.button(p=self.m_column, label = 'Random Scatter', command = lambda *args: self.ScatterBTN())
         
-        self.values = cmds.floatField()
-        cmds.button(p=self.m_column, label = 'Open Calculator', command = lambda *args: self.CalcBTN())
         
-        self.strandLength = cmds.intField(p=self.m_column)
-        cmds.button(p=self.m_column, label = 'Build a DNA Strand', command = lambda *args: self.DNABTN())
+        cmds.button(p=self.m_column, label = 'Open Calculator', command = lambda *args: self.CalculatorBTN())
         
+               
         cmds.showWindow(self.window_name)
         
         
-    def DNABTN(self):
-        import DNABuilder
-        value = cmds.intField(self.strandLength, q=True, value=True)
-        DNABuilder.DNA(value)
-        
+    
     
     def CenterBTN(self):
-        import CenterSelected
-        CenterSelected.Locator()
+        import FinalCenterSelected
+        FinalCenterSelected.Locator()
         
-    def CalcBTN(self): 
-        import Calculate
+    def CalculatorBTN(self): 
+        import FinalCalculator
         
-        Calculate.calcTool.create()
+        FinalCalculator.newCalcTool.create()
         
     
     def ScatterBTN(self):
-        import Scatter
+        import FinalScatter
         valueOne = cmds.floatFieldGrp(self.moveMM, q=True, value=True)
         valueTwo = cmds.floatFieldGrp(self.rotMM, q=True, value=True)
         valueThree = cmds.floatFieldGrp(self.scaleMM, q=True, value=True)
         
-        Scatter.RandomScatter(valueOne, valueTwo, valueThree)
-        #cmds.intField(self.moveMin, self.moveMax, self.rotMin, self.rotMax, self.scaleMin, self.scaleMax, e=True, text='')
+        FinalScatter.RandomScatter(valueOne, valueTwo, valueThree)
+        
     
     
     def IndiCenterBTN(self):
-        import ManySelected
-        ManySelected.LocatorMany()
+        import FinalManySelected
+        FinalManySelected.LocatorMany()
     
     def RenameBtn(self):
-        import Rename
+        import FinalRename
         value = cmds.textField(self.input, q=True, text = True)
-        Rename.RenameTool(value)
+        FinalRename.RenameTool(value)
         cmds.textField(self.input, e=True, text='')
     
     def colorBtn(self):
-        import ColorControl
+        import FinalColor
         value = cmds.textField(self.colorname, q=True, text = True)
-        ColorControl.colorControl(value)
+        FinalColor.colorControl(value)
         cmds.textField(self.colorname, e=True, text='')
     
     def delete(self): 
@@ -90,9 +84,9 @@ class Toolbox():
             
     def ControlBTN(self):
     
-        import CreateControl
-        CreateControl.createControl()
+        import FinalControlCreate
+        FinalControlCreate.createControl()
          
-myTool = Toolbox()    
+myFinalTool = finToolbox()    
 
-myTool.create()   
+myFinalTool.create()   
