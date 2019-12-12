@@ -1,0 +1,98 @@
+class Toolbox():
+    
+    import maya.cmds as cmds
+    
+    
+    def __init__(self):
+        
+        self.window_name = "mlToolbox"
+    def create(self): 
+        self.delete()
+        import Add
+        self.window_name = cmds.window(self.window_name)
+        self.m_column = cmds.columnLayout(p = self.window_name, adj = True)
+        cmds.button(p=self.m_column,label = 'MyButton', c=lambda *arg: cmds.polySphere(r = 2))
+        
+        
+        
+        cmds.button(p=self.m_column, label = 'Make and Name Control', command = lambda *args: self.ControlBTN())
+        
+        cmds.button(p=self.m_column, label = 'Find Collective Center of All Selected Objects', command = lambda *args: self.CenterBTN())
+        
+        cmds.button(p=self.m_column, label = 'Find Center of Each Selected Object', command = lambda *args: self.IndiCenterBTN())
+        
+        self.colorname = cmds.textField(placeholderText = 'Enter color name...')
+        cmds.button(p=self.m_column, label = 'Change Control Color', command = lambda *args: self.colorBtn())
+        
+        self.input = cmds.textField(placeholderText = 'Enter name in format "Left_###_Leg"')
+        cmds.button(p=self.m_column, label = 'Rename Object', command = lambda *args: self.RenameBtn())
+        
+        
+        self.moveMM = cmds.floatFieldGrp(p=self.m_column, label = 'Min and Max Move Values', nf = 2)
+        self.rotMM = cmds.floatFieldGrp(p=self.m_column, label = 'Min and Max Rotate Values', nf = 2)
+        self.scaleMM = cmds.floatFieldGrp(p=self.m_column, label = 'Min and Max Scale Values', nf = 2)
+        cmds.button(p=self.m_column, label = 'Random Scatter', command = lambda *args: self.ScatterBTN())
+        
+        self.values = cmds.floatField()
+        cmds.button(p=self.m_column, label = 'Open Calculator', command = lambda *args: self.CalcBTN())
+        
+        self.strandLength = cmds.intField(p=self.m_column)
+        cmds.button(p=self.m_column, label = 'Build a DNA Strand', command = lambda *args: self.DNABTN())
+        
+        cmds.showWindow(self.window_name)
+        
+        
+    def DNABTN(self):
+        import DNABuilder
+        value = cmds.intField(self.strandLength, q=True, value=True)
+        DNABuilder.DNA(value)
+        
+    
+    def CenterBTN(self):
+        import CenterSelected
+        CenterSelected.Locator()
+        
+    def CalcBTN(self): 
+        import Calculate
+        
+        Calculate.calcTool.create()
+        
+    
+    def ScatterBTN(self):
+        import Scatter
+        valueOne = cmds.floatFieldGrp(self.moveMM, q=True, value=True)
+        valueTwo = cmds.floatFieldGrp(self.rotMM, q=True, value=True)
+        valueThree = cmds.floatFieldGrp(self.scaleMM, q=True, value=True)
+        
+        Scatter.RandomScatter(valueOne, valueTwo, valueThree)
+        #cmds.intField(self.moveMin, self.moveMax, self.rotMin, self.rotMax, self.scaleMin, self.scaleMax, e=True, text='')
+    
+    
+    def IndiCenterBTN(self):
+        import ManySelected
+        ManySelected.LocatorMany()
+    
+    def RenameBtn(self):
+        import Rename
+        value = cmds.textField(self.input, q=True, text = True)
+        Rename.RenameTool(value)
+        cmds.textField(self.input, e=True, text='')
+    
+    def colorBtn(self):
+        import ColorControl
+        value = cmds.textField(self.colorname, q=True, text = True)
+        ColorControl.colorControl(value)
+        cmds.textField(self.colorname, e=True, text='')
+    
+    def delete(self): 
+        if cmds.window(self.window_name, exists=True):
+            cmds.deleteUI(self.window_name)
+            
+    def ControlBTN(self):
+    
+        import CreateControl
+        CreateControl.createControl()
+         
+myTool = Toolbox()    
+
+myTool.create()   
