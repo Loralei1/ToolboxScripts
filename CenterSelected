@@ -1,0 +1,15 @@
+def Locator():
+    
+    import maya.cmds as cmds
+
+    Stuff = cmds.ls(sl=True, long=True) or []
+
+    bbs = cmds.exactWorldBoundingBox(Stuff)
+
+    X = (bbs[0] + bbs[3])/2  
+
+    Y = (bbs[1] + bbs[4])/2    
+
+    Z = (bbs[2] + bbs[5])/2 ;   
+
+    cmds.spaceLocator(p=(X, Y, Z) )
