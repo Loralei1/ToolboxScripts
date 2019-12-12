@@ -1,0 +1,21 @@
+def LocatorMany():
+    
+    import maya.cmds as cmds
+
+    Stuff = cmds.ls(sl=True, objectsOnly=True) 
+
+    i = 0
+
+    for Thing in Stuff: 
+
+        bbs = cmds.exactWorldBoundingBox(Stuff[i])
+
+        X = (bbs[0] + bbs[3])/2  
+
+        Y = (bbs[1] + bbs[4])/2    
+
+        Z = (bbs[2] + bbs[5])/2   
+
+        cmds.spaceLocator(p=(X, Y, Z) )
+
+        i = i + 1
