@@ -1,0 +1,28 @@
+def RandomScatter(moveMM, rotMM, scaleMM):
+
+    
+
+    import random
+
+    import maya.cmds as cmds
+
+    
+
+    Stuff = cmds.ls(sl=True)
+
+    i=0
+    
+
+   
+
+    for i in range(random.randint(1,100)):
+
+        Stuff.append(cmds.duplicate(Stuff))
+
+        cmds.move( (random.randint(moveMM[0], moveMM[1])), (random.randint(moveMM[0], moveMM[1])), (random.randint(moveMM[0], moveMM[1])), Stuff[i], absolute=True ) 
+
+        cmds.rotate( (random.randint(rotMM[0], rotMM[1])), (random.randint(rotMM[0], rotMM[1])), (random.randint(rotMM[0], rotMM[1])), Stuff[i], absolute=True )
+
+        cmds.scale( (random.randint(scaleMM[0], scaleMM[1])), (random.randint(scaleMM[0], scaleMM[1])), (random.randint(scaleMM[0], scaleMM[1])), Stuff[i], absolute=True )
+
+        i = i+1
