@@ -1,0 +1,37 @@
+def RenameTool(input):
+
+    
+
+    import maya.cmds as cmds
+
+    
+
+    tokens = input.split('_')
+
+    print len(tokens)
+
+    print tokens
+
+
+
+    Stuff = cmds.ls(sl=True)
+
+    i = 0
+
+    bump = 1
+
+    for Things in Stuff:
+
+        
+
+        paddingNum = (len(tokens[1]) - len(str(bump)))
+
+        padding = str(0)*paddingNum
+
+        newName = (tokens[0] + "_" + padding + str(bump) + "_" + tokens[2]) 
+
+        cmds.rename(Stuff[i], newName)
+
+        i = i + 1
+
+        bump = bump + 1
