@@ -1,0 +1,249 @@
+import maya.cmds as cmds
+
+import math
+
+class Calculator():
+    
+    import maya.cmds as cmds
+    
+    
+    def __init__(self):
+        
+        self.window_name = "calcToolbox"
+    def create(self): 
+        self.delete()
+        import Add
+        self.window_name = cmds.window(self.window_name)
+        self.m_column = cmds.columnLayout(p = self.window_name, adj = True)
+        
+        self.values = cmds.floatFieldGrp(p=self.m_column, nf=4)
+        cmds.button(p=self.m_column, label = 'Add', command = lambda *args: self.AddBTN())
+        cmds.button(p=self.m_column, label = 'Subtract', command = lambda *args: self.SubtractBTN())
+        cmds.button(p=self.m_column, label = 'Divide', command = lambda *args: self.DivideBTN())
+        cmds.button(p=self.m_column, label = 'Multiply', command = lambda *args: self.MultiplyBTN())
+        cmds.button(p=self.m_column, label = 'Mode', command = lambda *args: self.ModeBTN())
+        cmds.button(p=self.m_column, label = 'Mean', command = lambda *args: self.MeanBTN())
+        cmds.button(p=self.m_column, label = 'Median', command = lambda *args: self.MedianBTN())
+        cmds.button(p=self.m_column, label = 'Power', command = lambda *args: self.PowerBTN())
+        #self.result = cmds.floatField(p=self.m_column)
+        
+        
+        cmds.showWindow(self.window_name)
+    
+    def PowerBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Power(self, num)
+        
+        self.result = cmds.floatField(value=result)    
+    
+    def MedianBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Median(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def MeanBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Mean(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def ModeBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Mode(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def MultiplyBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Multiply(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def DivideBTN(self):
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Divide(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def SubtractBTN(self):
+        
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Subtract(self, num)
+        self.result = cmds.floatField(value=result)    
+    
+    def AddBTN(self):
+        
+        num = cmds.floatFieldGrp(self.values, q=True, value=True)
+        
+        result = Calculator.Add(self, num)
+        self.result = cmds.floatField(value=result)
+    
+    def Multiply(self, values):
+
+        result = 1
+        
+        i = 0 
+    
+        for val in values: 
+    
+            result *= values[i]
+            
+            i = i + 1
+            print result
+    
+        return result
+        print result
+    
+    
+    def Divide(self, values):
+
+        result = values[0]
+
+        counter =  1
+
+        while (counter <= len(values) - 1): 
+
+            result /= values[counter]
+            print result
+
+            break
+
+        return float(result)
+    
+    def Add(self, values):
+
+        result = values[0] 
+        
+        print values
+        print len(values)
+        
+        i = 0
+    
+        for val in values:
+             
+            result += values[i]
+            
+            i = i + 1
+            print result
+        return result
+        print result
+        
+    
+    def Subtract(self, values):
+
+        result = 0
+        print values
+        print len(values) 
+        i = 0
+        for val in values: 
+    
+                result -= values[i]
+                i = i + 1
+                print result
+        return result
+        print result
+        return result
+        
+    def Mode(self, values):
+
+    
+
+        counter = 0 
+    
+        modeList = [0]
+    
+        highFreq = 0
+    
+        modeNumber = 0
+    
+        Mode = 0
+    
+        
+    
+        for val in values:
+    
+               counter = values.count(val)
+    
+               print (counter), val         
+    
+               modeList.append(counter)
+    
+               highFreq = max(modeList)
+    
+               print highFreq
+    
+               modeNumber = modeList.index(highFreq)
+    
+               print modeNumber
+    
+               mode = values[modeNumber]
+    
+               print mode 
+    
+               
+    
+        return mode
+    
+        return highFreq
+    
+        print "The mode is ", mode, "with a frequency of", highFreq
+    
+    def Mean(self, values):
+
+        sum = 0 
+    
+        result = 0
+    
+        i = 0 
+    
+        for val in values: 
+    
+            sum += values[i]
+            
+             
+    
+            result = float(sum/len(values))
+            
+            i = i + 0
+            
+            print result 
+    
+        return result
+    
+    def Median(self, values):
+
+        median = 0
+    
+        sum = len(values)/2
+    
+        sum = int(math.ceil(sum)) 
+    
+        median = values[sum]
+    
+        
+        print median
+        return median
+        
+    def Power(self, values): 
+
+        import math
+    
+        result = math.pow(values[0], values[1])
+        
+        print result
+        return result
+        
+    
+    def delete(self): 
+        import maya.cmds as cmds
+        if cmds.window(self.window_name, exists=True):
+            cmds.deleteUI(self.window_name)
+            
+    
+         
+calcTool = Calculator()    
+
+calcTool.create()   
